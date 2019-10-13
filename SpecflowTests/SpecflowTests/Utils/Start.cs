@@ -8,25 +8,34 @@ using System.Threading;
 using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 using static SpecflowPages.CommonMethods;
+using OpenQA.Selenium;
 
 namespace SpecflowTests.Utils
 {
+    [Binding]
     public class Start : Driver
     {
-        [BeforeScenario]
-        public void SetUp()
+        //[BeforeScenario]
+        [BeforeTestRun]
+        public static void SetUp()
         {
-            //Launch the browser
-            Initialize();
-            Thread.Sleep(500);
+            //IWebElement profiletab = Driver.driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[1]/div/a[2]"));
+            //if (profiletab.Displayed == false)
+            {
+                //Launch the browser
+                Initialize();
+                Thread.Sleep(500);
 
-            //Call the Login Class            
-            SpecflowPages.Utils.LoginPage.LoginStep();         
-                      
+                //Call the Login Class            
+                SpecflowPages.Utils.LoginPage.LoginStep();
+
+            }
+        
         }
 
-        [AfterScenario]
-        public void TearDown()
+        //[AfterScenario]
+        [AfterTestRun]
+        public static void TearDown()
         {
             Thread.Sleep(500);
             // Screenshot
